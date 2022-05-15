@@ -1,8 +1,7 @@
 '''
 TODO: 1. add method to get model from mlflow artifacts
-      2. hyperparameters tune 
-      3. write DataLoader Class ,which is a generator
-      4. add display such as cnf_matrix.png
+      2. write DataLoader Class ,which is a generator
+      3. add display such as cnf_matrix.png
 '''
 
 from abc import ABCMeta, abstractmethod
@@ -90,6 +89,7 @@ class SklearnTrainer(ITrainer):
         
         raise NotImplementedError('you need to make your data ')
 
+
     def run(self, **kwargs):
         mlflow.sklearn.autolog()
 
@@ -115,24 +115,22 @@ class SklearnTrainer(ITrainer):
 
             self.model.fit(self.X_train, self.y_train)
 
+
     @abstractmethod
     def metrics(self) -> Dict[str, float]:
         raise NotImplementedError('Not Implemented')
     
-
-    def hyper_space(self):
-        pass
 
 
 
 
 class TFTrainer(ITrainer):
 
-    def __init__(self, n_classes: int, experiment_name: str = None, reuse_exp_id: int = None) -> None:
+    def __init__(self, experiment_name: str = None, reuse_exp_id: int = None) -> None:
 
         super().__init__(experiment_name, reuse_exp_id)
 
-        self.n_classes = n_classes
+        
         self._loss_fn: tf.keras.losses = None
         self._optimizer: tf.keras.optimizers = None
         self._callbacks: List = None
@@ -207,8 +205,7 @@ class TFTrainer(ITrainer):
 
         raise NotImplementedError('Not Implemented')
 
-    def hyper_space(self):
-        pass
+
 
  
 
